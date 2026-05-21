@@ -14,7 +14,62 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      blocked_numbers: {
+        Row: {
+          buyer_id: string | null
+          created_at: string
+          id: string
+          numero: number
+        }
+        Insert: {
+          buyer_id?: string | null
+          created_at?: string
+          id?: string
+          numero: number
+        }
+        Update: {
+          buyer_id?: string | null
+          created_at?: string
+          id?: string
+          numero?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "blocked_numbers_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "buyers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      buyers: {
+        Row: {
+          cidade: string | null
+          created_at: string
+          id: string
+          nome: string
+          numeros: number[]
+          telefone: string
+        }
+        Insert: {
+          cidade?: string | null
+          created_at?: string
+          id?: string
+          nome: string
+          numeros?: number[]
+          telefone: string
+        }
+        Update: {
+          cidade?: string | null
+          created_at?: string
+          id?: string
+          nome?: string
+          numeros?: number[]
+          telefone?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
