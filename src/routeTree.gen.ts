@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PainelAdminMoraisRouteImport } from './routes/painel-admin-morais'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PainelAdminMoraisRoute = PainelAdminMoraisRouteImport.update({
+  id: '/painel-admin-morais',
+  path: '/painel-admin-morais',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/painel-admin-morais': typeof PainelAdminMoraisRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/painel-admin-morais': typeof PainelAdminMoraisRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/painel-admin-morais': typeof PainelAdminMoraisRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/painel-admin-morais'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/painel-admin-morais'
+  id: '__root__' | '/' | '/painel-admin-morais'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PainelAdminMoraisRoute: typeof PainelAdminMoraisRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/painel-admin-morais': {
+      id: '/painel-admin-morais'
+      path: '/painel-admin-morais'
+      fullPath: '/painel-admin-morais'
+      preLoaderRoute: typeof PainelAdminMoraisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,17 +70,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PainelAdminMoraisRoute: PainelAdminMoraisRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
