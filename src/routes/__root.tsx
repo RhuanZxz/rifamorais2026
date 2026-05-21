@@ -76,10 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Plataforma oficial da Rifa Professor Morais. Escolha seus números e reserve via WhatsApp." },
       { name: "author", content: "Rifa Professor Morais" },
       { property: "og:title", content: "Rifa Professor Morais" },
-      { property: "og:description", content: "Escolha seus números. R$10 cada." },
+      { property: "og:description", content: "Plataforma oficial da Rifa Professor Morais. Escolha seus números e reserve via WhatsApp." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Rifa Professor Morais" },
+      { name: "twitter:description", content: "Plataforma oficial da Rifa Professor Morais. Escolha seus números e reserve via WhatsApp." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/39c7e703-be53-42a1-8eea-f1d4642ed8f7/id-preview-1771eabd--c41d5400-15c7-4fc2-b70d-fee650068fe8.lovable.app-1779367082271.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/39c7e703-be53-42a1-8eea-f1d4642ed8f7/id-preview-1771eabd--c41d5400-15c7-4fc2-b70d-fee650068fe8.lovable.app-1779367082271.png" },
     ],
     links: [
       {
