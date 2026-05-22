@@ -2,6 +2,8 @@
 @source "../src";
 @import "tw-animate-css";
 
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -30,64 +32,99 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-gold: var(--gold);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", "Times New Roman", serif;
 }
 
 :root {
   --radius: 0.625rem;
 
-  /* Premium dark green palette */
-  --background: oklch(0.18 0.035 165);          /* #031B12 */
-  --foreground: oklch(0.92 0.005 250);          /* #E5E7EB */
-  --muted-foreground: oklch(0.70 0.025 235);    /* #94A3B8 */
+  /* Ivory satin & emerald — Comissão EEPM 2026 */
+  --background: oklch(0.96 0.012 85);            /* ivory satin */
+  --foreground: oklch(0.28 0.06 155);            /* deep emerald text */
+  --muted-foreground: oklch(0.45 0.04 155);
 
-  --card: oklch(0.22 0.038 165);                /* #062317 */
-  --card-foreground: oklch(0.92 0.005 250);
-  --card-hover: oklch(0.25 0.04 165);           /* #0A2E1F */
+  --card: oklch(0.98 0.008 85);                  /* slightly lighter ivory */
+  --card-foreground: oklch(0.28 0.06 155);
+  --card-hover: oklch(0.94 0.014 85);
 
-  --popover: oklch(0.22 0.038 165);
-  --popover-foreground: oklch(0.92 0.005 250);
+  --popover: oklch(0.98 0.008 85);
+  --popover-foreground: oklch(0.28 0.06 155);
 
-  --primary: oklch(0.62 0.17 148);              /* #16A34A */
-  --primary-foreground: oklch(0.98 0.005 165);
-  --primary-soft: oklch(0.42 0.10 148);
+  --primary: oklch(0.36 0.09 155);               /* emerald green from logo */
+  --primary-foreground: oklch(0.97 0.012 85);
+  --primary-soft: oklch(0.45 0.07 155);
 
-  --secondary: oklch(0.25 0.04 165);
-  --secondary-foreground: oklch(0.92 0.005 250);
+  --secondary: oklch(0.92 0.015 85);
+  --secondary-foreground: oklch(0.28 0.06 155);
 
-  --muted: oklch(0.25 0.04 165);
-  --accent: oklch(0.28 0.045 165);
-  --accent-foreground: oklch(0.92 0.005 250);
+  --muted: oklch(0.93 0.012 85);
+  --accent: oklch(0.90 0.018 85);
+  --accent-foreground: oklch(0.28 0.06 155);
 
-  --destructive: oklch(0.55 0.20 25);
+  --gold: oklch(0.72 0.12 75);                   /* warm gold from tassel/stars */
+
+  --destructive: oklch(0.52 0.20 25);
   --destructive-foreground: oklch(0.98 0 0);
 
-  --border: oklch(1 0 0 / 5%);
-  --input: oklch(1 0 0 / 6%);
-  --ring: oklch(0.62 0.17 148 / 40%);
+  --border: oklch(0.36 0.09 155 / 12%);
+  --input: oklch(0.36 0.09 155 / 10%);
+  --ring: oklch(0.36 0.09 155 / 35%);
 
-  --shadow-card: 0 1px 0 rgba(255,255,255,0.02) inset, 0 8px 32px -16px rgba(0,0,0,0.6);
-  --glow-primary: 0 0 0 1px rgba(22,163,74,0.25), 0 6px 24px -6px rgba(22,163,74,0.25);
+  --shadow-card: 0 1px 0 rgba(255,255,255,0.6) inset, 0 12px 40px -18px rgba(40,80,55,0.18);
+  --glow-primary: 0 0 0 1px oklch(0.36 0.09 155 / 25%), 0 10px 30px -8px oklch(0.36 0.09 155 / 28%);
+
+  /* Satin paper texture */
+  --satin-bg:
+    radial-gradient(ellipse 80% 60% at 20% 10%, oklch(0.99 0.01 85) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 85% 30%, oklch(0.93 0.018 80) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 70% at 50% 100%, oklch(0.91 0.02 78) 0%, transparent 60%),
+    linear-gradient(180deg, oklch(0.96 0.012 85) 0%, oklch(0.94 0.014 82) 100%);
 }
 
 @layer base {
   * { border-color: var(--color-border); }
-  html, body { background-color: var(--color-background); color: var(--color-foreground); }
+  html, body {
+    background: var(--satin-bg);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+  }
   body {
     font-family: var(--font-sans);
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  ::selection { background: oklch(0.62 0.17 148 / 30%); }
+  ::selection { background: oklch(0.36 0.09 155 / 25%); }
 }
 
 @layer utilities {
+  .font-display { font-family: var(--font-display); font-feature-settings: "liga", "dlig"; }
   .surface-card {
     background-color: var(--card);
     border: 1px solid var(--border);
     box-shadow: var(--shadow-card);
   }
   .glow-primary { box-shadow: var(--glow-primary); }
-  .hairline { border-color: rgba(255,255,255,0.05); }
+  .hairline { border-color: oklch(0.36 0.09 155 / 14%); }
+  .text-gold { color: var(--gold); }
+  .border-gold { border-color: var(--gold); }
+  .bg-gold { background-color: var(--gold); }
+
+  /* Decorative gold star, used as ::before/::after content via class */
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gold);
+  }
+  .gold-divider::before,
+  .gold-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 50%, transparent);
+    opacity: 0.5;
+  }
 }
