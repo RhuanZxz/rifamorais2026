@@ -7,27 +7,35 @@ import { Prizes } from "@/components/raffle/Prizes";
 import { useBlockedNumbers } from "@/hooks/useRaffleData";
 import { RAFFLE_PRICE, RAFFLE_TITLE, RAFFLE_TOTAL } from "@/lib/raffle-config";
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import logo from "@/assets/logo-comissao.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Rifa Professor Morais — Concorra a R$500 e mais prêmios" },
+      { title: "Rifa Professor Morais — Comissão EEPM 2026" },
       {
         name: "description",
         content:
-          "Participe da Rifa Professor Morais. R$10 por número, três prêmios: R$500, camisa de time e voucher Coco Bambu.",
+          "Rifa oficial da Comissão de Formatura EEPM 2026. Concorra a R$500, camisa de time e voucher Coco Bambu. Apenas R$10 por número.",
       },
-      { property: "og:title", content: "Rifa Professor Morais" },
+      { property: "og:title", content: "Rifa Professor Morais — Comissão 2026" },
       {
         property: "og:description",
         content:
-          "R$500 em dinheiro, camisa de time e voucher Coco Bambu. Apenas R$10 por número.",
+          "R$500, camisa de time e voucher Coco Bambu. Apenas R$10 por número.",
       },
     ],
   }),
   component: HomePage,
 });
+
+function Sparkle({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M12 0 L13.5 9 L24 12 L13.5 15 L12 24 L10.5 15 L0 12 L10.5 9 Z" />
+    </svg>
+  );
+}
 
 function HomePage() {
   const { blocked, loading } = useBlockedNumbers();
@@ -49,80 +57,80 @@ function HomePage() {
   );
 
   const available = RAFFLE_TOTAL - blocked.size;
-  const progress = Math.round((blocked.size / RAFFLE_TOTAL) * 100);
 
   return (
-    <div className="min-h-screen bg-background pb-32">
-      <Toaster theme="dark" position="top-center" />
+    <div className="min-h-screen pb-32">
+      <Toaster theme="light" position="top-center" />
 
-      {/* Ambient background */}
-      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 left-1/2 -translate-x-1/2 h-[500px] w-[900px] rounded-full bg-primary/10 blur-[140px]" />
-        <div className="absolute top-[40%] -right-40 h-[400px] w-[400px] rounded-full bg-primary/5 blur-[120px]" />
-      </div>
-
-      <header className="border-b hairline backdrop-blur-md bg-background/60 sticky top-0 z-30">
-        <div className="mx-auto max-w-6xl px-5 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-primary/15 border border-primary/30 grid place-items-center">
-              <div className="h-2 w-2 rounded-sm bg-primary" />
+      <header className="border-b hairline backdrop-blur-md bg-background/70 sticky top-0 z-30">
+        <div className="mx-auto max-w-6xl px-5 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <img
+              src={logo}
+              alt="Comissão EEPM 2026"
+              className="h-10 w-10 rounded-full object-cover border border-primary/20"
+            />
+            <div className="leading-tight">
+              <p className="text-[10px] uppercase tracking-[0.24em] text-gold font-medium">
+                Comissão 2026
+              </p>
+              <span className="text-sm font-display font-semibold tracking-tight text-primary">
+                {RAFFLE_TITLE}
+              </span>
             </div>
-            <span className="text-sm font-semibold tracking-tight">
-              {RAFFLE_TITLE}
-            </span>
           </div>
           <div className="hidden sm:flex items-center gap-4 text-xs text-muted-foreground tabular-nums">
             <span>
-              <span className="text-foreground font-medium">{available}</span> /{" "}
+              <span className="text-primary font-semibold">{available}</span> /{" "}
               {RAFFLE_TOTAL} disponíveis
             </span>
-            <span className="h-3 w-px bg-border" />
+            <span className="h-3 w-px bg-primary/20" />
             <span>R$ {RAFFLE_PRICE} por número</span>
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 py-12 lg:py-16">
+      <main className="mx-auto max-w-6xl px-5 py-14 lg:py-20">
         {/* Hero */}
         <motion.section
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="mb-14 lg:mb-20 max-w-3xl"
+          className="mb-20 text-center"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 mb-6">
-            <Sparkles className="h-3.5 w-3.5 text-primary" />
-            <span className="text-xs font-medium text-primary">
-              Rifa oficial — sorteio confirmado
-            </span>
+          <motion.img
+            src={logo}
+            alt="EEPM Comissão 2026"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="mx-auto mb-10 h-44 w-44 sm:h-52 sm:w-52 rounded-2xl object-cover shadow-[0_20px_60px_-20px_rgba(40,80,55,0.35)] border border-primary/15"
+          />
+
+          <div className="gold-divider max-w-[260px] mx-auto mb-5">
+            <Sparkle className="h-3 w-3" />
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.02]">
-            Concorra a{" "}
-            <span className="text-primary">R$ 500</span>, camisa de time
-            e voucher Coco Bambu.
-          </h1>
-          <p className="mt-5 text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Escolha quantos números quiser por apenas{" "}
-            <span className="text-foreground font-medium">R$ {RAFFLE_PRICE},00</span>{" "}
-            cada. Reserva confirmada via WhatsApp.
+
+          <p className="text-[11px] uppercase tracking-[0.36em] text-gold font-semibold mb-4">
+            Rifa oficial · Formatura 2026
           </p>
 
-          {/* Progress */}
-          <div className="mt-8 max-w-md">
-            <div className="flex justify-between text-xs text-muted-foreground mb-2 tabular-nums">
-              <span>Vendidos</span>
-              <span>
-                {blocked.size} / {RAFFLE_TOTAL} · {progress}%
-              </span>
-            </div>
-            <div className="h-1.5 rounded-full bg-card overflow-hidden border hairline">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="h-full bg-gradient-to-r from-primary/70 to-primary rounded-full"
-              />
-            </div>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-medium tracking-tight text-primary leading-[1.02] max-w-4xl mx-auto">
+            Rifa do{" "}
+            <em className="italic text-gold">Professor Morais</em>
+          </h1>
+
+          <p className="mt-6 text-base sm:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            Ajude nossa formatura e concorra a três prêmios especiais. Cada
+            número custa apenas{" "}
+            <span className="text-primary font-semibold">
+              R$ {RAFFLE_PRICE},00
+            </span>
+            . Reserva pelo WhatsApp.
+          </p>
+
+          <div className="gold-divider max-w-[260px] mx-auto mt-10">
+            <Sparkle className="h-3 w-3" />
           </div>
         </motion.section>
 
@@ -130,24 +138,24 @@ function HomePage() {
 
         {/* Grid */}
         <section>
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-primary/80 font-medium mb-2">
-                Escolha seus números
-              </p>
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">
-                Toque nos números livres
-              </h2>
-            </div>
-            <div className="flex items-center gap-4 text-[11px] uppercase tracking-wider text-muted-foreground">
+          <div className="text-center mb-10">
+            <p className="text-[11px] uppercase tracking-[0.32em] text-gold font-medium mb-3">
+              Escolha seus números
+            </p>
+            <h2 className="text-4xl sm:text-5xl font-display font-medium tracking-tight text-primary">
+              Toque para selecionar
+            </h2>
+            <div className="flex items-center justify-center gap-5 text-[11px] uppercase tracking-wider text-muted-foreground mt-5">
               <Legend dotClass="bg-card border border-primary/25" label="Livre" />
               <Legend dotClass="bg-primary" label="Selecionado" />
-              <Legend dotClass="bg-card/50 border border-white/5 opacity-60" label="Vendido" />
+              <Legend dotClass="bg-muted border border-primary/10" label="Vendido" />
             </div>
           </div>
 
           <div className="surface-card rounded-2xl p-4 sm:p-6">
-            {loading ? <SkeletonGrid /> : (
+            {loading ? (
+              <SkeletonGrid />
+            ) : (
               <NumberGrid
                 blocked={blocked}
                 selected={selected}
@@ -159,8 +167,14 @@ function HomePage() {
       </main>
 
       <footer className="border-t hairline">
-        <div className="mx-auto max-w-6xl px-5 py-6 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} {RAFFLE_TITLE}
+        <div className="mx-auto max-w-6xl px-5 py-8 text-center">
+          <div className="gold-divider max-w-[200px] mx-auto mb-4">
+            <Sparkle className="h-2.5 w-2.5" />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            © {new Date().getFullYear()} {RAFFLE_TITLE} · Comissão de Formatura
+            EEPM 2026
+          </p>
         </div>
       </footer>
 
@@ -194,7 +208,7 @@ function SkeletonGrid() {
       {Array.from({ length: 80 }).map((_, i) => (
         <div
           key={i}
-          className="aspect-square rounded-full bg-card animate-pulse opacity-50"
+          className="aspect-square rounded-full bg-muted animate-pulse opacity-60"
         />
       ))}
     </div>

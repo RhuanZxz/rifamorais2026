@@ -24,13 +24,13 @@ function NumberCell({
       disabled={state === "blocked"}
       aria-label={`Numero ${n}`}
       className={cn(
-        "aspect-square rounded-full text-sm font-semibold tabular-nums transition-all duration-150 grid place-items-center select-none",
+        "aspect-square rounded-full text-sm font-medium tabular-nums transition-all duration-150 grid place-items-center select-none font-display",
         state === "free" &&
-          "bg-card border border-primary/25 text-foreground/85 hover:border-primary hover:bg-primary/10 hover:scale-[1.04]",
+          "bg-card border border-primary/25 text-primary hover:border-primary hover:bg-primary/8 hover:scale-[1.05] shadow-sm",
         state === "selected" &&
-          "bg-primary text-primary-foreground border border-primary shadow-[0_0_0_3px_rgba(22,163,74,0.18)] scale-[1.02]",
+          "bg-primary text-primary-foreground border border-primary shadow-[0_0_0_3px_oklch(0.36_0.09_155/0.18)] scale-[1.04]",
         state === "blocked" &&
-          "bg-card/50 border border-white/5 text-muted-foreground/40 cursor-not-allowed line-through",
+          "bg-muted border border-primary/10 text-primary/30 cursor-not-allowed line-through",
       )}
     >
       {n}
