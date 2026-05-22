@@ -24,16 +24,16 @@ function NumberCell({
       disabled={state === "blocked"}
       aria-label={`Numero ${n}`}
       className={cn(
-        "h-11 rounded-md text-xs font-medium tabular-nums transition-colors duration-150 border border-white/[0.04]",
+        "aspect-square rounded-full text-sm font-semibold tabular-nums transition-all duration-150 grid place-items-center select-none",
         state === "free" &&
-          "bg-[oklch(0.22_0.04_165)] text-foreground/80 hover:bg-[oklch(0.27_0.05_148)] hover:text-foreground hover:border-primary/30",
+          "bg-card border border-primary/25 text-foreground/85 hover:border-primary hover:bg-primary/10 hover:scale-[1.04]",
         state === "selected" &&
-          "bg-primary text-primary-foreground border-primary/60 shadow-[0_0_0_1px_rgba(22,163,74,0.4)]",
+          "bg-primary text-primary-foreground border border-primary shadow-[0_0_0_3px_rgba(22,163,74,0.18)] scale-[1.02]",
         state === "blocked" &&
-          "bg-[oklch(0.20_0.01_165)] text-muted-foreground/40 cursor-not-allowed opacity-60",
+          "bg-card/50 border border-white/5 text-muted-foreground/40 cursor-not-allowed line-through",
       )}
     >
-      {n.toString().padStart(4, "0")}
+      {n}
     </button>
   );
 }
@@ -53,7 +53,7 @@ function NumberGridImpl({ blocked, selected, onToggle }: Props) {
     );
   }
   return (
-    <div className="grid gap-1.5 grid-cols-[repeat(auto-fill,minmax(60px,1fr))]">
+    <div className="grid gap-2 grid-cols-[repeat(auto-fill,minmax(48px,1fr))]">
       {cells}
     </div>
   );
