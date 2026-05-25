@@ -19,9 +19,10 @@ type Props = {
   onOpenChange: (o: boolean) => void;
   auth: { username: string; password: string };
   mode: "block" | "unblock";
+  onDone?: () => void;
 };
 
-export function BlockDialog({ open, onOpenChange, auth, mode }: Props) {
+export function BlockDialog({ open, onOpenChange, auth, mode, onDone }: Props) {
   const block = useServerFn(adminBlockNumbers);
   const unblock = useServerFn(adminUnblockNumbers);
   const [txt, setTxt] = useState("");
@@ -45,6 +46,7 @@ export function BlockDialog({ open, onOpenChange, auth, mode }: Props) {
         toast.success(`${parsed.length} número(s) liberado(s)`);
       }
       setTxt("");
+      onDone?.();
       onOpenChange(false);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erro");

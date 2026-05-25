@@ -22,8 +22,8 @@ type Props = {
 };
 
 export function AdminDashboard({ auth, onLogout }: Props) {
-  const { buyers, loading } = useBuyers();
-  const { blocked } = useBlockedNumbers();
+  const { buyers, loading, refetch } = useBuyers(auth);
+  const { blocked, refetch: refetchBlocked } = useBlockedNumbers();
   const del = useServerFn(adminDeleteBuyer);
 
   const [query, setQuery] = useState("");
@@ -53,6 +53,8 @@ export function AdminDashboard({ auth, onLogout }: Props) {
     try {
       await del({ data: { ...auth, id: b.id } });
       toast.success("Comprador removido");
+      refetch();
+      refetchBlocked();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erro");
     }
@@ -224,14 +226,19 @@ export function AdminDashboard({ auth, onLogout }: Props) {
         onOpenChange={setBuyerOpen}
         auth={auth}
         editing={editing}
-        onDone={() => {}}
+        onDone={() => {
+          refetch();
+          refetchBlocked();
+        }}
       />
       <BlockDialog
         open={blockOpen}
         onOpenChange={setBlockOpen}
         auth={auth}
         mode={blockMode}
+        onDone={refetchBlocked}
       />
+
     </div>
   );
 }

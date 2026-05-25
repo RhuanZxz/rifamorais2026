@@ -137,3 +137,16 @@ export const adminUnblockNumbers = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+export const adminListBuyers = createServerFn({ method: "POST" })
+  .inputValidator((input) => AuthSchema.parse(input))
+  .handler(async ({ data }) => {
+    if (!checkAdminAuth(data.username, data.password)) throw new Error("Nao autorizado");
+    const { data: rows, error } = await supabaseAdmin
+      .from("buyers")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(10000);
+    if (error) throw new Error(error.message);
+    return { buyers: rows ?? [] };
+  });
