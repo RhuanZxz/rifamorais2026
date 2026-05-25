@@ -75,7 +75,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      list_blocked_numero: { Args: never; Returns: number[] }
     }
     Enums: {
       [_ in never]: never
