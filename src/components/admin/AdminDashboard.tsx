@@ -226,14 +226,19 @@ export function AdminDashboard({ auth, onLogout }: Props) {
         onOpenChange={setBuyerOpen}
         auth={auth}
         editing={editing}
-        onDone={() => {}}
+        onDone={() => {
+          refetch();
+          refetchBlocked();
+        }}
       />
       <BlockDialog
         open={blockOpen}
         onOpenChange={setBlockOpen}
         auth={auth}
         mode={blockMode}
+        onDone={refetchBlocked}
       />
+
     </div>
   );
 }
