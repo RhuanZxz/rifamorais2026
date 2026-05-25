@@ -4,7 +4,7 @@ import { Trophy, Shirt, UtensilsCrossed } from "lucide-react";
 const prizes = [
   {
     place: "Primeiro lugar",
-    title: "R$ 500,00",
+    title: "R$ 1.000,00",
     desc: "Prêmio em dinheiro entregue ao vencedor",
     Icon: Trophy,
   },

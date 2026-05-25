@@ -2,6 +2,8 @@ export const RAFFLE_TOTAL = 1500;
 export const RAFFLE_PRICE = 10;
 export const RAFFLE_TITLE = "Rifa Professor Morais";
 export const WHATSAPP_NUMBER = "5531993253768";
+export const PIX_KEY = "+55 31 99325-3768";
+export const PIX_NAME = "Letícia Caroline";
 
 export function parseNumberInput(input: string, max = RAFFLE_TOTAL): number[] {
   const out = new Set<number>();
@@ -28,12 +30,14 @@ export function formatNumber(n: number): string {
 export function buildWhatsAppLink(nome: string, telefone: string, numeros: number[]): string {
   const total = numeros.length * RAFFLE_PRICE;
   const msg = [
-    `Ola! Quero reservar numeros na ${RAFFLE_TITLE}.`,
+    `Olá! Quero reservar números na ${RAFFLE_TITLE}.`,
     ``,
     `Nome: ${nome}`,
     `Telefone: ${telefone}`,
-    `Numeros (${numeros.length}): ${numeros.map(formatNumber).join(", ")}`,
+    `Números (${numeros.length}): ${numeros.map(formatNumber).join(", ")}`,
     `Total: R$ ${total},00`,
+    ``,
+    `Já realizei o Pix e estou enviando o comprovante em seguida. 💚`,
   ].join("\n");
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
 }
