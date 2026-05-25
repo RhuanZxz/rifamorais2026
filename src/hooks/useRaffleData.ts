@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useServerFn } from "@tanstack/react-start";
+import { adminListBuyers } from "@/lib/raffle.functions";
 
 export type Buyer = {
   id: string;
@@ -15,61 +17,43 @@ export function useBlockedNumbers() {
   const [loading, setLoading] = useState(true);
 
   const refetch = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("blocked_numbers")
-      .select("numero")
-      .limit(10000);
+    const { data, error } = await supabase.rpc("list_blocked_numero");
     if (!error && data) {
-      setBlocked(new Set(data.map((r) => r.numero)));
+      setBlocked(new Set((data as number[]) ?? []));
     }
     setLoading(false);
   }, []);
 
   useEffect(() => {
     refetch();
-    const channel = supabase
-      .channel("blocked_numbers_changes")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "blocked_numbers" },
-        () => refetch(),
-      )
-      .subscribe();
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    const id = setInterval(refetch, 10000);
+    return () => clearInterval(id);
   }, [refetch]);
 
   return { blocked, loading, refetch };
 }
 
-export function useBuyers() {
+export function useBuyers(auth: { username: string; password: string } | null) {
+  const list = useServerFn(adminListBuyers);
   const [buyers, setBuyers] = useState<Buyer[]>([]);
   const [loading, setLoading] = useState(true);
 
   const refetch = useCallback(async () => {
-    const { data, error } = await supabase
-      .from("buyers")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(10000);
-    if (!error && data) setBuyers(data as Buyer[]);
-    setLoading(false);
-  }, []);
+    if (!auth) return;
+    try {
+      const res = await list({ data: auth });
+      setBuyers((res.buyers as Buyer[]) ?? []);
+    } catch {
+      setBuyers([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [auth, list]);
 
   useEffect(() => {
     refetch();
-    const ch = supabase
-      .channel("buyers_changes")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "buyers" },
-        () => refetch(),
-      )
-      .subscribe();
-    return () => {
-      supabase.removeChannel(ch);
-    };
+    const id = setInterval(refetch, 15000);
+    return () => clearInterval(id);
   }, [refetch]);
 
   return { buyers, loading, refetch };
