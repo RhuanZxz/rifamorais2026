@@ -136,6 +136,38 @@ function HomePage() {
 
         <Prizes />
 
+        {/* Sentimental note */}
+        <motion.section
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-20"
+        >
+          <div className="surface-card rounded-2xl p-8 sm:p-10 max-w-3xl mx-auto text-center relative overflow-hidden">
+            <Sparkle className="absolute top-4 left-4 h-2.5 w-2.5 text-gold/40" />
+            <Sparkle className="absolute top-4 right-4 h-2 w-2 text-gold/30" />
+            <Sparkle className="absolute bottom-4 left-4 h-2 w-2 text-gold/30" />
+            <Sparkle className="absolute bottom-4 right-4 h-2.5 w-2.5 text-gold/40" />
+
+            <p className="text-[10px] uppercase tracking-[0.32em] text-gold font-medium mb-4">
+              Uma palavra da turma
+            </p>
+            <p className="font-display text-2xl sm:text-3xl text-primary leading-snug italic">
+              “Cada número comprado é um passo para realizarmos o sonho da
+              nossa formatura.”
+            </p>
+            <p className="mt-5 text-sm sm:text-base text-muted-foreground leading-relaxed max-w-xl mx-auto">
+              Essa rifa é feita com carinho pela turma do{" "}
+              <span className="text-primary font-medium">Professor Morais</span>.
+              Sua contribuição nos ajuda a celebrar o fim de uma jornada que
+              vivemos juntos — e o início de tudo o que vem pela frente. Muito
+              obrigado por fazer parte desse momento com a gente. 💚
+            </p>
+          </div>
+        </motion.section>
+
+
         {/* Grid */}
         <section>
           <div className="text-center mb-10">
