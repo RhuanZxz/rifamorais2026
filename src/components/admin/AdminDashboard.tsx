@@ -53,6 +53,8 @@ export function AdminDashboard({ auth, onLogout }: Props) {
     try {
       await del({ data: { ...auth, id: b.id } });
       toast.success("Comprador removido");
+      refetch();
+      refetchBlocked();
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erro");
     }
