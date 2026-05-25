@@ -46,6 +46,7 @@ export function BlockDialog({ open, onOpenChange, auth, mode, onDone }: Props) {
         toast.success(`${parsed.length} número(s) liberado(s)`);
       }
       setTxt("");
+      onDone?.();
       onOpenChange(false);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Erro");
