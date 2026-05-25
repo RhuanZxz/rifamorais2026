@@ -22,8 +22,8 @@ type Props = {
 };
 
 export function AdminDashboard({ auth, onLogout }: Props) {
-  const { buyers, loading } = useBuyers();
-  const { blocked } = useBlockedNumbers();
+  const { buyers, loading, refetch } = useBuyers(auth);
+  const { blocked, refetch: refetchBlocked } = useBlockedNumbers();
   const del = useServerFn(adminDeleteBuyer);
 
   const [query, setQuery] = useState("");
