@@ -16,13 +16,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Rifa oficial da Comissão de Formatura EEPM 2026. Concorra a R$500, camisa de time e voucher Coco Bambu. Apenas R$10 por número.",
+          "Rifa oficial da Comissão de Formatura EEPM 2026. Concorra a R$1.000, camisa de time e voucher Coco Bambu. Apenas R$5 por número.",
       },
       { property: "og:title", content: "Rifa Professor Morais — Comissão 2026" },
       {
         property: "og:description",
         content:
-          "R$500, camisa de time e voucher Coco Bambu. Apenas R$10 por número.",
+          "R$1.000, camisa de time e voucher Coco Bambu. Apenas R$5 por número.",
       },
     ],
   }),
