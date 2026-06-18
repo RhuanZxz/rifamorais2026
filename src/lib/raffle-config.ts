@@ -1,5 +1,5 @@
 export const RAFFLE_TOTAL = 1500;
-export const RAFFLE_PRICE = 10;
+export const RAFFLE_PRICE = 5;
 export const RAFFLE_TITLE = "Rifa Professor Morais";
 export const WHATSAPP_NUMBER = "5531993253768";
 export const PIX_KEY = "+55 31 99325-3768";
